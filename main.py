@@ -34,7 +34,7 @@ class MyTopo(Topo):
 
         url = "http://192.168.91.147:8080/wm/firewall/rules/json"
         headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
-        r.requests.json(url,
+        r = requests.post(url,
                         data={"src-ip": "10.0.0.2", "dst-ip": "10.0.0.1", "nw-proto": "ICMP",
                               "action": "DENY"},
                         headers=headers)
