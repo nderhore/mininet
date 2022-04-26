@@ -39,5 +39,13 @@ class MyTopo(Topo):
                               "action": "DENY"},
                         headers=headers)
 
+        url = "http://192.168.91.147:8080/wm/firewall/rules/json"
+        headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
+        r = requests.post(url,
+                          data={"nw-proto": "ICMP",
+                                "action": "ALLOW"},
+                          headers=headers)
+
+
 
 topos = {'mytopo': (lambda: MyTopo())}
