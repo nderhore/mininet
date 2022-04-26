@@ -27,5 +27,19 @@ class MyTopo(Topo):
         self.addLink(leftSwitch, leftHostBottom)
         self.addLink(leftSwitch, leftHost)
 
+        # on active le firewall
+        url = "http://localhost:8080/wm/firewall/module/enable/json"
+        headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
+        r = requests.post(url, data={"sample": "data"}, headers=headers)
+        data = r.json
+
+        url = "http://localhost:8080/wm/firewall/rules/json"
+        headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
+        r.requests.json(url,
+                        data={"src-ip": "10.0.0.2", "dst-ip": "10.0.0.1", "nw-proto": "ICMP",
+                              "action": "DENY"},
+                        headers=headers)
+        data = r.json
+
 
 topos = {'mytopo': (lambda: MyTopo())}
