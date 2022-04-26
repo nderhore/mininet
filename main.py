@@ -17,13 +17,15 @@ class MyTopo(Topo):
         leftSwitch = self.addSwitch('S1')
         centerSwitch = self.addSwitch('S3')
 
-        self.addLink(leftHost, centerSwitch)
+        self.addLink(centerSwitch, leftHost)
         self.addLink(centerSwitch, rightHost)
-        self.addLink(rightHost, rightSwitch)
-        self.addLink(rightSwitch, leftSwitch)
-        self.addLink(leftSwitch, leftHost)
-        self.addLink(leftSwitch, leftHostBottom)
+
+        self.addLink(rightSwitch, rightHost)
         self.addLink(rightSwitch, rightHostBottom)
+        self.addLink(rightSwitch, leftSwitch)
+
+        self.addLink(leftSwitch, leftHostBottom)
+        self.addLink(leftSwitch, leftHost)
 
 
-topos = { 'mytopo': (lambda: MyTopo())}
+topos = {'mytopo': (lambda: MyTopo())}
