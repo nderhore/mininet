@@ -1,6 +1,6 @@
 # This is a sample Python script.
 from mininet.topo import Topo
-
+import requests
 
 # Press Maj+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -31,7 +31,6 @@ class MyTopo(Topo):
         url = "http://localhost:8080/wm/firewall/module/enable/json"
         headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
         r = requests.post(url, data={"sample": "data"}, headers=headers)
-        data = r.json
 
         url = "http://localhost:8080/wm/firewall/rules/json"
         headers = {"content-type": "application/json", "Accept-Charset": "UTF-8"}
@@ -39,7 +38,6 @@ class MyTopo(Topo):
                         data={"src-ip": "10.0.0.2", "dst-ip": "10.0.0.1", "nw-proto": "ICMP",
                               "action": "DENY"},
                         headers=headers)
-        data = r.json
 
 
 topos = {'mytopo': (lambda: MyTopo())}
