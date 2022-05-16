@@ -31,7 +31,7 @@ while True:
         event_url = sFlow_RT + '/events/json?maxEvents=10&timeout=60'
         eventID = -1
     if black_list.__len__() > 0 and black_list[0][0] < time.time():
-        r = requests.delete(floodlight + '/wm/static/flowpusher/', data=black_list.pop(0)[1])
+        r = requests.delete(floodlight + '/wm/staticflowpusher/json', data=black_list.pop(0)[1])
         print (r.json()['status'])
     r = requests.get(event_url + '&eventID=' + str(eventID))
     events = r.json()
@@ -61,7 +61,8 @@ while True:
                                 }
                                 print(message)
                                 push_data = json.dumps(message)
-                                r = requests.post(floodlight + '/wm/staticflowpusher/', data=push_data)
+                                r = requests.post(floodlight + '/wm/staticflowpusher/json', data=push_data)
+                                print(r.status_code)
                                 black_list.append([time.time()+block_time, push_data])
                                 break
                             else:
